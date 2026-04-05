@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 clientRoute.get('/google-auth', (req, res) => {
-    console.log(req.query);
+
    res.redirect('/login?message=Google%20authentication%20is%20not%20implemented%20yet');
 
 });
@@ -54,6 +54,8 @@ clientRoute.get('/meet',async (req,res)=>{
         if(!meeting)return res.status(404).render('error');
         
         const token = req.cookies.token;
+        if(!token)
+           return res.redirect("/login")
         const email = jwt.verify(token,process.env.JWT_SECRET);
    
         if(email.id == meeting.host) return res.status(200).render('meeting',{host:true,id:id});
