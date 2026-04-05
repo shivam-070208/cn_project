@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body class="bg-[#773fe7ec]  w-[100vw] h-screen grid place-items-center">
+
+<nav class="bg-[#5e2dbf51] backdrop-blur-xl w-screen fixed top-[0.01px] pt-2 z-[100] shadow-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/intro"  class="text-white font-extrabold md:text-3xl text-xl  tracking-wide hover:text-purple-300 transition">
+      Meetingo
+    </a>
+   <div class="md:flex hidden gap-3">
+ <button  id="newmeet"
+      class="bg-white text-[#5e2dbf] px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
+    >
+  
+         Create Meet+
+    </button>
+    
+   </div>
+  
+  </div>
+</nav>
+   <div class="flex flex-wrap flex-col gap-3">
+  <button  id="newmeet"
+      class="bg-white text-[#5e2dbf] px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
+    >
+  
+         Create Meet+
+    </button>
+    <div>
+      <input type="text" placeholder="Iinputmeetid" class="inputmeetid border-2 border-white outline-none p-1 rounded">
+      <button
+        class="bg-[#5e2dbf] joinmeet hover:text-[#5e2dbf]  text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
+      >
+     
+          Join meet+
+      
+      </button>
+    </div>
+   </div>
+  
+   <script src="javascript/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetingo</title>
+    <link rel="stylesheet" href="/styles/index.css">
+</head>
+<body>
+    <div class="w-[100vw] h-screen bg-[#020104e7] grid place-items-center">
+        <div class="bg-[#ebe2e228] backdrop-blur-[100px] p-8 rounded-lg flex flex-col items-center">
+            <h1 class="text-white font-bold text-2xl mb-4 max-[340px]:text-lg">Welcome Back to Meetingo</h1>
+            <form action="/api/login" method="POST" class="w-full flex flex-col gap-4">
+            <input type="email" name="Email" placeholder="Email" class="px-4 py-2 rounded bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+            <input type="password" name="password" placeholder="Password" class="px-4 py-2 rounded bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+            <p class="text-white text-xs self-end mt-2">Don't have an account? <a href="/signin" class="text-blue-500 hover:underline">Register here</a>, <a href="/forgot" class="text-green-500 hover:underline">Forgot Password</a></p>
+            <p class="text-red-600 self-center font-semibold text-lg"><%= message %></p>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition">Login</button>
+            </form>
+            <p class="text-xs text-white mt-3">or</p>
+            <a href="https://accounts.google.com/o/oauth2/auth?client_id=44553497354-kmtcql6ehfrpqjej9out0233e0l368f2.apps.googleusercontent.com&redirect_uri=https://meetingo-two.vercel.app/google-auth&response_type=code&scope=email">
+                <img src="https://icon2.cleanpng.com/20240216/gkb/transparent-google-logo-iconic-google-logo-with-blue-green-and-1710875585209.webp" alt="Google Icon" class="w-6 h-6 rounded-full object-cover mt-3" redirect="false">
+                
+            </a>
+            
+           
+           
+        </div>
+
+        </div>
+</body>
+</html>

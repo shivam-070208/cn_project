@@ -1,0 +1,24 @@
+@import "tailwindcss";
+body{
+  width: 100vw;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar{
+  background-color: transparent;
+  width: 12px;
+
+}
+html {
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar-button{
+  display: none;
+}
+::-webkit-scrollbar-track{
+  display: none;
+
+}
+::-webkit-scrollbar-thumb{
+  background: radial-gradient(circle, #a674f7, #5123a0);
+border-radius: 100px;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link rel="stylesheet" href="/styles/index.css">
+</head>
+<body class="bg-[#773fe7ec]  w-[100vw] min-h-screen">
+   <%- include('partials/Navbar') %>
+
+
+      <%- include('partials/Heroic') %>
+       <%- include('partials/Features') %>
+        <%- include('partials/Howiworks') %>
+       <%- include('partials/Footer', { message: typeof message !== 'undefined' ? message : "" }) %>
+
+
+
+
+</body>
+</html>
