@@ -22,20 +22,41 @@ clientRoute.get('/login', (req, res) => {
 );
 clientRoute.get('/signin', (req, res) => {
     if(req.cookies && req.cookies.token){
-        res.redirect('/')
+        try {
+            jwt.verify(req.cookies.token, process.env.JWT_SECRET);
+            return res.redirect('/');
+        } catch (error) {
+            res.clearCookie('token');
+        }
     }
-   else res.render('signin');
+   res.render('signin');
     
 }
 );
+const handleLogout = (req, res) => {
+    res.clearCookie('token', { path: '/' });
+
+    if (req.session) {
+        return req.session.destroy(() => {
+            res.redirect(303, '/intro?message=You%20have%20been%20logged%20out');
+        });
+    }
+
+    res.redirect(303, '/intro?message=You%20have%20been%20logged%20out');
+};
+
+clientRoute.all('/logout', handleLogout);
 clientRoute.get('/',(req, res) => {
-        
         if(req.cookies && req.cookies.token){
-         
-            res.render('main');
-        }else{
-            res.redirect('/intro');
+            try {
+                jwt.verify(req.cookies.token, process.env.JWT_SECRET);
+                return res.render('main');
+            } catch (error) {
+                res.clearCookie('token');
+            }
         }
+
+        res.redirect('/intro');
 
 }
 );
@@ -56,9 +77,9 @@ clientRoute.get('/meet',async (req,res)=>{
         const token = req.cookies.token;
         if(!token)
            return res.redirect("/login")
-        const email = jwt.verify(token,process.env.JWT_SECRET);
+          const decoded = jwt.verify(token,process.env.JWT_SECRET);
    
-        if(email.id == meeting.host) return res.status(200).render('meeting',{host:true,id:id});
+          if(decoded.id == meeting.host) return res.status(200).render('meeting',{host:true,id:id});
         res.status(200).render('meeting',{host:false,id:id});
     }catch(error){
         res.status(500).send(`sorry error at server${error}`)

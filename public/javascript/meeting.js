@@ -14,21 +14,76 @@ var peer = new Peer({
 
 let peerid;
 
+const maindiv = document.querySelector('.maindiv');
+
+const micBtn = document.querySelector('#micBtn');
+const camBtn = document.querySelector('#cameraBtn');
+
+const micOnIcon = `
+<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+  <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
+  <path d="M5 10a7 7 0 0 0 14 0"/>
+</svg>`;
+
+const micOffIcon = `
+<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+  <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
+  <line x1="2" y1="2" x2="22" y2="22" stroke="red" stroke-width="2"/>
+</svg>`;
+
+const camOnIcon = `
+<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+  <rect x="3" y="6" width="15" height="12" rx="2"/>
+</svg>`;
+
+const camOffIcon = `
+<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+  <rect x="3" y="6" width="15" height="12" rx="2"/>
+  <line x1="2" y1="2" x2="22" y2="22" stroke="red" stroke-width="2"/>
+</svg>`;
+
+const renderControlIcons = () => {
+  if (micBtn && !micBtn.innerHTML.trim()) {
+    micBtn.innerHTML = micOnIcon;
+  }
+
+  if (camBtn && !camBtn.innerHTML.trim()) {
+    camBtn.innerHTML = camOnIcon;
+  }
+};
+
+renderControlIcons();
+
+const updateVideoCardSizes = () => {
+  if (!maindiv) return;
+
+  const cardCount = maindiv.querySelectorAll('.video-box').length;
+  let cardSize = '360px';
+
+  if (cardCount >= 2 && cardCount <= 3) {
+    cardSize = '340px';
+  } else if (cardCount >= 4 && cardCount <= 5) {
+    cardSize = '310px';
+  } else if (cardCount >= 6 && cardCount <= 7) {
+    cardSize = '280px';
+  } else if (cardCount >= 8) {
+    cardSize = '250px';
+  }
+
+  maindiv.style.setProperty('--card-size', cardSize);
+};
+
 peer.on('open', (id) => {
   peerid = id;
 });
 
-/* ================= STREAM ================= */
 
 const getstream = async () => {
   return await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 };
 
-/* ================= ADD VIDEO ================= */
 
 const addremoteStream = (stream, call) => {
-  const maindiv = document.querySelector('.maindiv');
-
   const existing = [...maindiv.querySelectorAll('video')].find(
     v => v.srcObject && v.srcObject.id === stream.id
   );
@@ -45,21 +100,25 @@ const addremoteStream = (stream, call) => {
 
   wrapper.appendChild(video);
   maindiv.appendChild(wrapper);
+  updateVideoCardSizes();
 };
 
-/* ================= SOCKET ================= */
 
 Socket.emit('join-me', { id });
 
 Socket.on('enter', async () => {
-  mystream = await getstream();
+  try {
+    mystream = await getstream();
 
-  const video = document.querySelector('.mystream');
-  video.srcObject = mystream;
-  video.play();
+    const video = document.querySelector('.mystream');
+    video.srcObject = mystream;
+    video.play();
 
-  micBtn.innerHTML = micOnIcon;
-  camBtn.innerHTML = camOnIcon;
+    updateVideoCardSizes();
+    renderControlIcons();
+  } catch (error) {
+    console.error('Unable to access media devices', error);
+  }
 });
 
 Socket.on('newmember', ({ socketid }) => {
@@ -68,7 +127,10 @@ Socket.on('newmember', ({ socketid }) => {
 
 Socket.on('removepeer', (data) => {
   const video = document.querySelector(`video[data-peer-id="${data.peer}"]`);
-  if (video) video.parentElement.remove();
+  if (video) {
+    video.parentElement.remove();
+    updateVideoCardSizes();
+  }
 });
 
 /* ================= CALL ================= */
@@ -90,7 +152,10 @@ peer.on('call', (call) => {
 
   call.on('close', () => {
     const video = document.querySelector(`video[data-peer-id="${call.peer}"]`);
-    if (video) video.parentElement.remove();
+    if (video) {
+      video.parentElement.remove();
+      updateVideoCardSizes();
+    }
   });
 });
 
@@ -127,20 +192,6 @@ if (hangBtn) {
 }
 /* ================= MIC ================= */
 
-const micBtn = document.querySelector('#micBtn');
-
-const micOnIcon = `
-<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-  <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
-  <path d="M5 10a7 7 0 0 0 14 0"/>
-</svg>`;
-
-const micOffIcon = `
-<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-  <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
-  <line x1="2" y1="2" x2="22" y2="22" stroke="red" stroke-width="2"/>
-</svg>`;
-
 micBtn.onclick = () => {
   const track = mystream.getAudioTracks()[0];
   if (!track) return;
@@ -150,19 +201,6 @@ micBtn.onclick = () => {
 };
 
 /* ================= CAMERA ================= */
-
-const camBtn = document.querySelector('#cameraBtn');
-
-const camOnIcon = `
-<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-  <rect x="3" y="6" width="15" height="12" rx="2"/>
-</svg>`;
-
-const camOffIcon = `
-<svg viewBox="0 0 24 24" width="28" height="28" fill="white">
-  <rect x="3" y="6" width="15" height="12" rx="2"/>
-  <line x1="2" y1="2" x2="22" y2="22" stroke="red" stroke-width="2"/>
-</svg>`;
 
 camBtn.onclick = () => {
   const track = mystream.getVideoTracks()[0];

@@ -11,12 +11,12 @@ userRoute.post('/login',async (req, res) => {
     const { Email , password } = req.body;
 
     try{
-       
         const user = await UserModel.findOne({ email: Email });
         if(user){
-           
-            if(user.password === password){
-                const token = jwt.sign(Email,process.env.JWT_SECRET,{
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if(isPasswordValid){
+                const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, {
                     expiresIn: '10h'
                 });
                 res.clearCookie('token');

@@ -11,17 +11,26 @@
 
 <!-- NAVBAR -->
 <nav class="bg-white/10 backdrop-blur-xl border-b border-white/20 w-full fixed top-0 z-50 shadow-lg">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+
     <a href="/intro" class="text-white font-extrabold text-2xl tracking-wide hover:text-purple-200 transition">
       Meetingo
     </a>
 
-    <button id="newmeet"
-      class="bg-white/90 text-purple-700 px-5 py-2 rounded-xl font-semibold shadow-md 
-             hover:scale-105 hover:bg-white transition duration-300">
-      Create Meet+
-    </button>
+    <div class="flex items-center gap-3 ml-auto">
+      <button id="newmeet"
+        class="bg-white/90 text-purple-700 px-5 py-2 rounded-xl font-semibold shadow-md hover:scale-105 hover:bg-white transition duration-300">
+        Create Meet+
+      </button>
+
+      <form action="/logout" method="post" class="m-0">
+        <button type="submit"
+          class="bg-red-600 text-white px-5 py-2 rounded-xl font-semibold shadow-md hover:scale-105 transition duration-300"
+          style="background-color:#dc2626;color:#ffffff;">
+          Logout
+        </button>
+      </form>
+    </div>
 
   </div>
 </nav>
