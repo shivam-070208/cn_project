@@ -3,47 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meetingo</title>
     <link rel="stylesheet" href="styles/index.css">
 </head>
-<body class="bg-[#773fe7ec]  w-[100vw] h-screen grid place-items-center">
 
-<nav class="bg-[#5e2dbf51] backdrop-blur-xl w-screen fixed top-[0.01px] pt-2 z-[100] shadow-md">
+<body class="min-h-screen bg-gradient-to-br from-purple-700 via-indigo-600 to-purple-900 flex flex-col">
+
+<!-- NAVBAR -->
+<nav class="bg-white/10 backdrop-blur-xl border-b border-white/20 w-full fixed top-0 z-50 shadow-lg">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="/intro"  class="text-white font-extrabold md:text-3xl text-xl  tracking-wide hover:text-purple-300 transition">
+    
+    <a href="/intro" class="text-white font-extrabold text-2xl tracking-wide hover:text-purple-200 transition">
       Meetingo
     </a>
-   <div class="md:flex hidden gap-3">
- <button  id="newmeet"
-      class="bg-white text-[#5e2dbf] px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
-    >
-  
-         Create Meet+
+
+    <button id="newmeet"
+      class="bg-white/90 text-purple-700 px-5 py-2 rounded-xl font-semibold shadow-md 
+             hover:scale-105 hover:bg-white transition duration-300">
+      Create Meet+
     </button>
-    
-   </div>
-  
+
   </div>
 </nav>
-   <div class="flex flex-wrap flex-col gap-3">
-  <button  id="newmeet"
-      class="bg-white text-[#5e2dbf] px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
-    >
-  
-         Create Meet+
+
+<!-- MAIN -->
+<div class="flex flex-col items-center justify-center flex-grow text-center px-4 mt-20">
+
+  <!-- Heading -->
+  <h1 class="text-white text-4xl md:text-5xl font-bold mb-3 tracking-wide">
+    Start a Meeting
+  </h1>
+
+  <p class="text-purple-200 mb-10 text-sm md:text-base">
+    Create a new meeting or join with a meeting ID
+  </p>
+
+  <!-- GLASS CARD -->
+  <div class="relative bg-white/10 backdrop-blur-xl border border-white/20 
+              rounded-2xl p-8 w-full max-w-md shadow-2xl 
+              transition duration-300 hover:shadow-purple-500/30">
+
+    <!-- subtle glow -->
+    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+
+    <!-- Create Button -->
+    <button id="newmeet"
+      class="w-full mb-6 bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 
+             text-white py-3 rounded-xl font-semibold shadow-lg 
+             hover:scale-[1.03] hover:shadow-purple-500/40 transition duration-300">
+      Create Meet+
     </button>
-    <div>
-      <input type="text" placeholder="Iinputmeetid" class="inputmeetid border-2 border-white outline-none p-1 rounded">
-      <button
-        class="bg-[#5e2dbf] joinmeet hover:text-[#5e2dbf]  text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-purple-100 transition"
+
+    <!-- Join Section -->
+    <div class="flex gap-3">
+
+      <input 
+        type="text" 
+        placeholder="Enter meeting ID"
+        class="inputmeetid flex-1 px-4 py-2 rounded-xl 
+               border border-white/30 bg-white/20 text-white placeholder-purple-200
+               outline-none focus:ring-2 focus:ring-purple-300 
+               focus:bg-white/30 transition"
       >
-     
-          Join meet+
-      
+
+      <button
+        class="joinmeet bg-white/90 text-purple-700 px-4 py-2 rounded-xl font-semibold 
+               shadow-md hover:bg-white hover:scale-105 transition duration-300">
+        Join
       </button>
+
     </div>
-   </div>
-  
-   <script src="javascript/main.js"></script>
+
+  </div>
+
+</div>
+
+<script src="javascript/main.js"></script>
+
 </body>
 </html>

@@ -8,40 +8,71 @@
     <link rel="stylesheet" href="/styles/index.css">
 </head>
 
-<body>
-    <div class="w-[100vw] h-screen bg-[#020104e7] grid place-items-center">
-        <div class="bg-[#ebe2e228] backdrop-blur-[100px] p-8 rounded-lg flex flex-col items-center">
-            <h1 class="text-white font-bold text-2xl mb-4 max-[340px]:text-lg">Welcome Back to Meetingo</h1>
-            <form action="/api/signin" method="POST" class="w-full flex flex-col gap-4">
-                <input type="text" name="username" placeholder="Username"
-                    class="px-4 py-2 roundied bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required>
-                <input type="email" name="Email" placeholder="Email"
-                    class="px-4 py-2 rounded bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required>
+<body class="min-h-screen bg-gradient-to-br from-purple-700 via-indigo-600 to-purple-900 flex items-center justify-center">
 
-                <input type="password" name="password" placeholder="Password"
-                    class="px-4 py-2 rounded bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" title="password must contain at least one number ,one small and capital letter one special character and min size is 8" required>
-                <p class="text-white text-xs self-end mt-2">Do have an account? <a href="/login"
-                        class="text-blue-500 hover:underline">Login Here</a>, <a href="/forgot"
-                        class="text-green-500 hover:underline">Forgot Password</a></p>
-                <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition">Signin</button>
-            </form>
-            <p class="text-xs text-white mt-3">or</p>
-            <a
-                href="https://accounts.google.com/o/oauth2/auth?client_id=44553497354-kmtcql6ehfrpqjej9out0233e0l368f2.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-auth&response_type=code&scope=email">
+    <!-- GLASS CARD -->
+    <div class="bg-white/10 backdrop-blur-xl border border-white/20 
+                p-8 rounded-2xl w-[90%] max-w-md 
+                shadow-2xl hover:shadow-purple-500/30 transition duration-300">
+
+        <!-- Heading -->
+        <h1 class="text-white font-bold text-2xl mb-6 text-center tracking-wide drop-shadow">
+            Welcome Back to Meetingo
+        </h1>
+
+        <!-- FORM -->
+        <form action="/api/signin" method="POST" class="flex flex-col gap-4">
+
+            <input type="text" name="username" placeholder="Username"
+                class="px-4 py-2 rounded-xl bg-white/20 text-white placeholder-purple-200 
+                       border border-white/30 outline-none 
+                       focus:ring-2 focus:ring-purple-300 focus:bg-white/30 transition"
+                required>
+
+            <input type="email" name="Email" placeholder="Email"
+                class="px-4 py-2 rounded-xl bg-white/20 text-white placeholder-purple-200 
+                       border border-white/30 outline-none 
+                       focus:ring-2 focus:ring-purple-300 focus:bg-white/30 transition"
+                required>
+
+            <input type="password" name="password" placeholder="Password"
+                class="px-4 py-2 rounded-xl bg-white/20 text-white placeholder-purple-200 
+                       border border-white/30 outline-none 
+                       focus:ring-2 focus:ring-purple-300 focus:bg-white/30 transition"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+                title="Password must contain at least one number, one uppercase, one lowercase, one special character, and be at least 8 characters long"
+                required>
+
+            <!-- Links -->
+            <p class="text-xs text-purple-200 text-right">
+                Have an account?
+                <a href="/login" class="text-purple-300 hover:underline">Login</a> |
+                <a href="/forgot" class="text-pink-300 hover:underline">Forgot?</a>
+            </p>
+
+            <!-- Button -->
+            <button type="submit"
+                class="bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 
+                       text-white py-2 rounded-xl font-semibold shadow-lg 
+                       hover:scale-[1.03] hover:shadow-purple-500/40 transition duration-300">
+                Sign In
+            </button>
+
+        </form>
+
+        <!-- Divider -->
+        <p class="text-center text-purple-200 text-sm mt-4">or</p>
+
+        <!-- Google Login -->
+        <div class="flex justify-center mt-3">
+            <a href="https://accounts.google.com/o/oauth2/auth?client_id=44553497354-kmtcql6ehfrpqjej9out0233e0l368f2.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-auth&response_type=code&scope=email">
                 <img src="https://icon2.cleanpng.com/20240216/gkb/transparent-google-logo-iconic-google-logo-with-blue-green-and-1710875585209.webp"
-                    alt="Google Icon" class="w-6 h-6 rounded-full object-cover mt-3" redirect="false">
-
+                    class="w-10 h-10 rounded-full hover:scale-110 transition duration-300 shadow-md">
             </a>
-
-
-
         </div>
 
     </div>
+
 </body>
 
 </html>

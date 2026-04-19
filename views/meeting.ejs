@@ -1,116 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meetingo</title>
+  <link rel="stylesheet" href="/styles/index.css">
+
   <style>
     video {
       width: 100%;
-      box-shadow: 2px 2px 2px 1px rgb(231 212 212 / 0.6);
-      border-radius: 0.3rem;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
+
+    /* uniform video cards */
+    .video-box {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    /* grid fix */
+    .maindiv {
+      grid-auto-rows: 300px;
+    }
+
+    /* controls */
+    .control-bar {
+      backdrop-filter: blur(12px);
+      background: rgba(90, 50, 180, 0.6);
+    }
+
     .control-btn {
-      @apply bg-white bg-opacity-20 hover:bg-opacity-40 text-white rounded-full p-3 cursor-pointer transition;
-      width: 48px;
-      height: 48px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: rgba(255,255,255,0.15);
+      transition: 0.2s;
     }
-    .control-btn.red {
-      background-color: #e53935;
-      &:hover {
-        background-color: #d32f2f;
-      }
+
+    .control-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.05);
     }
-    .control-bar {
-      backdrop-filter: blur(10px);
-      background-color: rgba(119, 63, 231, 0.55);
+
+    .end-call {
+      background: #e53935;
+    }
+
+    .end-call:hover {
+      background: #c62828;
     }
   </style>
 </head>
-<body class="bg-[#773fe7ec] relative min-h-screen flex flex-col ">
 
- <div class="fixed top-0 left-0 flex items-center gap-2 opacity-40 hover:opacity-100 text-white text-lg ml-2 mt-2 transition-opacity duration-300">
+<body class="bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-700 min-h-screen flex flex-col">
+
+<!-- Meet ID -->
+<div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 text-white text-sm bg-white/10 px-5 py-2 rounded-full backdrop-blur-md flex gap-3 items-center shadow">
   <span id="user-id"><%= id %></span>
-  <button
-    id="copyBtn"
-    class="px-2 py-1 text-sm bg-white bg-opacity-20 hover:bg-opacity-40 border  rounded-md text-blue-500 backdrop-blur-sm transition"
-    title="Copy ID"
-  >
-    Copy
-  </button>
+  <button id="copyBtn" class="text-purple-200 hover:text-white text-xs">Copy</button>
 </div>
-  <div
-    class="grid maindiv max-w-screen gap-4 pt-9 px-9
-           mx-auto
-          grid-cols-1
-           sm:grid-cols-1
-           md:grid-cols-2
-           lg:grid-cols-4
-           xl:grid-cols-5
-           grid-rows-3
-           flex-grow
-           overflow-auto"
-  >
-    <video class="mystream w-full object-cover" autoplay playsinline muted></video>
+
+<!-- Video Grid -->
+<div class="maindiv flex-1 grid gap-6 p-6 mt-20
+  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+  <div class="video-box">
+    <video class="mystream" autoplay playsinline muted></video>
   </div>
 
-  <!-- Google Meet style control bar -->
-  <div
-    class="control-bar fixed bottom-0 left-0 right-0 flex justify-center gap-6 py-3 px-6"
-  >
-    <!-- Mic toggle -->
-   <button class="control-btn" id="micBtn" title="Mute/Unmute Microphone" type="button" aria-pressed="false">
-  <!-- Mic Icon -->
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" viewBox="0 0 24 24">
-    <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
-    <path d="M19 10v1a7 7 0 0 1-14 0v-1"/>
-    <line x1="12" y1="19" x2="12" y2="23"/>
-    <line x1="8" y1="23" x2="16" y2="23"/>
-  </svg>
-</button>
+</div>
 
-    <!-- Camera toggle -->
- 
-<button class="control-btn" id="cameraBtn" title="Turn Camera On/Off" type="button" aria-pressed="true">
-  <!-- Simple Camera Icon -->
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="3" />
-    <rect x="5" y="7" width="16" height="13" rx="2" ry="2" />
-  </svg>
-</button>
+<!-- Controls -->
+<div class="control-bar fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-6 px-6 py-3 rounded-full shadow-xl z-50">
 
+  <button class="control-btn" id="micBtn"></button>
 
-    <!-- Screen Share -->
-   <!-- <button class="control-btn" id="screenShareBtn" title="Share Screen" type="button" aria-pressed="false">
-  <!-- Screen Share Icon: rectangle with upward arrow -->
-  <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" viewBox="0 0 24 24">
-    <rect x="3" y="4" width="18" height="14" rx="2" ry="2"/>
-    <path d="M12 14v-4"/>
-    <path d="M9 7l3-3 3 3"/>
-  </svg>
-</button> --> 
+  <button class="control-btn" id="cameraBtn"></button>
 
-    <!-- Hang Up / Close Call -->
-    <button class="controlbtn red" id="hangupBtn" title="Hang Up" type="button">
-      <!-- Phone Down Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.44 12.44 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.44 12.44 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    </button>
-  </div>
-    
-    
-    
-<script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+  <button class="control-btn end-call" id="hangupBtn"></button>
+
+</div>
+
+<script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
 <script>
   const id = <%- JSON.stringify(id) %>;
-   const host = <%- JSON.stringify(host) %>;
+  const host = <%- JSON.stringify(host) %>;
 </script>
-    <script type="module" src="/javascript/meeting.js"></script>
+
+<script type="module" src="/javascript/meeting.js"></script>
+
 </body>
 </html>
